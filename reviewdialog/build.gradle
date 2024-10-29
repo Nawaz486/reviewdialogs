@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("maven-publish")
 }
 
 android {
@@ -25,6 +26,35 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+}
+
+// Define properties in `ext` directly
+ext {
+    PUBLISH_GROUP_ID = "com.github.Izhamalik"
+    PUBLISH_VERSION = "1.2-alpha"
+    PUBLISH_ARTIFACT_ID = "reviewlibrary"
+    PUBLISH_DESCRIPTION = "An android gradle plugin for review dialogs"
+    PUBLISH_URL = "https://github.com/Izhamalik/reviewdialogs"
+    PUBLISH_LICENSE_NAME = "Apache 2.0 License"
+    PUBLISH_LICENSE_URL = "https://www.apache.org/licenses/LICENSE-2.0"
+    PUBLISH_DEVELOPER_ID = "Izhamalik"
+    PUBLISH_DEVELOPER_NAME = "Izhar Malik"
+    PUBLISH_DEVELOPER_EMAIL = "izhar.malik923@gmail.com"
+    PUBLISH_SCM_CONNECTION = "scm:git:github.com/Izhamalik/reviewdialogs.git"
+    PUBLISH_SCM_DEVELOPER_CONNECTION = "scm:git:ssh://github.com/Izhamalik/reviewdialogs.git"
+    PUBLISH_SCM_URL = "https://github.com/Izhamalik/reviewdialogs.git"
+}
+
+// Set version and group using `ext` properties
+version = ext.PUBLISH_VERSION
+group = ext.PUBLISH_GROUP_ID
+
+publishing {
+    repositories {
+        maven {
+            mavenLocal()
+        }
     }
 }
 
