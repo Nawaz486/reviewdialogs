@@ -36,8 +36,8 @@ android {
 // Define properties in `ext` directly
 ext {
     PUBLISH_GROUP_ID = "com.github.Izhamalik"
-    PUBLISH_VERSION = "1.5"
-    PUBLISH_ARTIFACT_ID = "reviewlibrary"
+    PUBLISH_VERSION = "1.6"
+    PUBLISH_ARTIFACT_ID = "reviewdialog"
     PUBLISH_DESCRIPTION = "An android gradle plugin for review dialogs"
     PUBLISH_URL = "https://github.com/Izhamalik/reviewdialogs"
     PUBLISH_LICENSE_NAME = "Apache 2.0 License"
@@ -55,12 +55,23 @@ version = ext.PUBLISH_VERSION
 group = ext.PUBLISH_GROUP_ID
 
 publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "com.github.IzhaMalik"
+            artifactId = "reviewdialog"
+            version = "1.6"
+//
+//            from components.java
+        }
+    }
+
     repositories {
         maven {
-            mavenLocal()
+            url = mavenLocal()
         }
     }
 }
+
 
 dependencies {
     implementation libs.androidx.core.ktx
