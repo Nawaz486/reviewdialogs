@@ -36,7 +36,7 @@ android {
 // Define properties in `ext` directly
 ext {
     PUBLISH_GROUP_ID = "com.github.Izhamalik"
-    PUBLISH_VERSION = "1.6"
+    PUBLISH_VERSION = "1.7"
     PUBLISH_ARTIFACT_ID = "reviewdialog"
     PUBLISH_DESCRIPTION = "An android gradle plugin for review dialogs"
     PUBLISH_URL = "https://github.com/Izhamalik/reviewdialogs"
@@ -59,7 +59,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = "com.github.IzhaMalik"
             artifactId = "reviewdialog"
-            version = "1.6"
+            version = "1.7"
 //
 //            from components.java
         }
@@ -80,4 +80,12 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
+
+
+    //sdp
+    implementation libs.sdp.android
+    //InApp Review
+    implementation libs.review.ktx
+    //Lottie Animation
+    implementation libs.lottie
 }
