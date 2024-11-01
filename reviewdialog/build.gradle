@@ -63,7 +63,7 @@ afterEvaluate {
                 version = "1.8"
 
                 afterEvaluate {
-                    from components.release
+                    from(components["release"])
                 }
 
             }
