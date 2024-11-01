@@ -25,7 +25,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '1.9'
     }
 
     lint {
@@ -36,7 +36,7 @@ android {
 // Define properties in `ext` directly
 ext {
     PUBLISH_GROUP_ID = "com.github.Izhamalik"
-    PUBLISH_VERSION = "1.8"
+    PUBLISH_VERSION = "1.9"
     PUBLISH_ARTIFACT_ID = "reviewdialog"
     PUBLISH_DESCRIPTION = "An android gradle plugin for review dialogs"
     PUBLISH_URL = "https://github.com/Izhamalik/reviewdialogs"
@@ -66,7 +66,7 @@ afterEvaluate {
                 // Customize attributes of the publication as shown below.
                 groupId = "com.github.IzhaMalik"
                 artifactId = "reviewdialog"
-                version = "1.8"
+                version = "1.9"
             }
         }
     }
