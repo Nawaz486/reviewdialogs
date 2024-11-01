@@ -54,25 +54,24 @@ ext {
 version = ext.PUBLISH_VERSION
 group = ext.PUBLISH_GROUP_ID
 
-afterEvaluate {
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                groupId = "com.github.IzhaMalik"
-                artifactId = "reviewdialog"
-                version = "1.8"
 
-                afterEvaluate {
-                    from(components["release"])
-                }
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "com.github.IzhaMalik"
+            artifactId = "reviewdialog"
+            version = "1.8"
 
+            afterEvaluate {
+                from(components["release"])
             }
+
         }
+    }
 
-        repositories {
-            maven {
-                url = mavenLocal()
-            }
+    repositories {
+        maven {
+            url = mavenLocal()
         }
     }
 }
