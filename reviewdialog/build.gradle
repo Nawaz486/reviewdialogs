@@ -28,6 +28,49 @@ android {
         jvmTarget = '1.8'
     }
 
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+}
+
+// Define properties in `ext` directly
+ext {
+    PUBLISH_GROUP_ID = "com.github.Izhamalik"
+    PUBLISH_VERSION = "1.8"
+    PUBLISH_ARTIFACT_ID = "reviewdialog"
+    PUBLISH_DESCRIPTION = "An android gradle plugin for review dialogs"
+    PUBLISH_URL = "https://github.com/Izhamalik/reviewdialogs"
+    PUBLISH_LICENSE_NAME = "Apache 2.0 License"
+    PUBLISH_LICENSE_URL = "https://www.apache.org/licenses/LICENSE-2.0"
+    PUBLISH_DEVELOPER_ID = "Izhamalik"
+    PUBLISH_DEVELOPER_NAME = "Izhar Malik"
+    PUBLISH_DEVELOPER_EMAIL = "izhar.malik923@gmail.com"
+    PUBLISH_SCM_CONNECTION = "scm:git:github.com/Izhamalik/reviewdialogs.git"
+    PUBLISH_SCM_DEVELOPER_CONNECTION = "scm:git:ssh://github.com/Izhamalik/reviewdialogs.git"
+    PUBLISH_SCM_URL = "https://github.com/Izhamalik/reviewdialogs.git"
+}
+
+// Set version and group using `ext` properties
+version = ext.PUBLISH_VERSION
+group = ext.PUBLISH_GROUP_ID
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "com.github.IzhaMalik"
+            artifactId = "reviewdialog"
+            version = "1.8"
+
+            from components.findByName('release')
+
+        }
+    }
+
+    repositories {
+        maven {
+            url = mavenLocal()
+        }
+    }
 }
 
 
