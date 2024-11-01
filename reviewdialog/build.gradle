@@ -55,26 +55,23 @@ version = ext.PUBLISH_VERSION
 group = ext.PUBLISH_GROUP_ID
 
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId = "com.github.IzhaMalik"
-            artifactId = "reviewdialog"
-            version = "1.8"
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            create("release", MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
 
-            afterEvaluate {
-                from(components["release"])
+                // Customize attributes of the publication as shown below.
+                groupId = "com.github.IzhaMalik"
+                artifactId = "reviewdialog"
+                version = "1.8"
             }
-
-        }
-    }
-
-    repositories {
-        maven {
-            url = mavenLocal()
         }
     }
 }
+
 
 
 dependencies {
