@@ -33,7 +33,7 @@ android {
     }
 }
 
-// Define properties in `ext` directly
+// Define properties using `ext`
 ext {
     PUBLISH_GROUP_ID = "com.github.Izhamalik"
     PUBLISH_VERSION = "1.9"
@@ -51,9 +51,8 @@ ext {
 }
 
 // Set version and group using `ext` properties
-version = ext.PUBLISH_VERSION
-group = ext.PUBLISH_GROUP_ID
-
+version = project.ext.PUBLISH_VERSION
+group = project.ext.PUBLISH_GROUP_ID
 
 afterEvaluate {
     publishing {
@@ -61,18 +60,44 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             create("release", MavenPublication) {
                 // Applies the component for the release build variant.
-                from components.release
+                from components["release"]
 
-                // Customize attributes of the publication as shown below.
-                groupId = "com.github.IzhaMalik"
-                artifactId = "reviewdialog"
-                version = "1.9"
+                // Use the properties from the `ext` block
+                groupId = project.ext.PUBLISH_GROUP_ID
+                artifactId = project.ext.PUBLISH_ARTIFACT_ID
+                version = project.ext.PUBLISH_VERSION
+
+                // Add additional metadata to the POM
+                pom {
+                    name.set(project.ext.PUBLISH_ARTIFACT_ID)
+                    description.set(project.ext.PUBLISH_DESCRIPTION)
+                    url.set(project.ext.PUBLISH_URL)
+
+                    licenses {
+                        license {
+                            name.set(project.ext.PUBLISH_LICENSE_NAME)
+                            url.set(project.ext.PUBLISH_LICENSE_URL)
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id.set(project.ext.PUBLISH_DEVELOPER_ID)
+                            name.set(project.ext.PUBLISH_DEVELOPER_NAME)
+                            email.set(project.ext.PUBLISH_DEVELOPER_EMAIL)
+                        }
+                    }
+
+                    scm {
+                        connection.set(project.ext.PUBLISH_SCM_CONNECTION)
+                        developerConnection.set(project.ext.PUBLISH_SCM_DEVELOPER_CONNECTION)
+                        url.set(project.ext.PUBLISH_SCM_URL)
+                    }
+                }
             }
         }
     }
 }
-
-
 
 dependencies {
     implementation libs.androidx.core.ktx
@@ -81,7 +106,6 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
-
 
     //sdp
     implementation libs.sdp.android
