@@ -3,12 +3,15 @@ package com.review.reviewdialog
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -67,6 +70,7 @@ object ReviewDialog {
 
     fun showRateusDialog(
         context: Context,
+        themecolor: Int,
         listOfDrawable: ArrayList<Drawable?>,
         listOfUserName: ArrayList<String>,
         listOfReviews: ArrayList<String>,
@@ -84,8 +88,14 @@ object ReviewDialog {
         }
         rateusdialog?.setContentView(R.layout.dialog_rateus)
         rateusdialog?.setCancelable(false)
+
         rateusdialog?.show()
 
+        rateusdialog?.findViewById<ImageView>(R.id.arrowImg)
+            ?.let { setImageViewTint(it, themecolor) }
+
+        rateusdialog?.findViewById<TextView>(R.id.bestTxt)?.setTextColor(themecolor)
+        rateusdialog?.findViewById<TextView>(R.id.feedbackTxt)?.setTextColor(themecolor)
 
         rateusdialog?.setOnDismissListener {
             onDismiss()
@@ -99,6 +109,7 @@ object ReviewDialog {
         val threestarBtn = rateusdialog?.findViewById<LottieAnimationView>(R.id.threestarBtn)
         val fourstarBtn = rateusdialog?.findViewById<LottieAnimationView>(R.id.fourstarBtn)
         val fivestarBtn = rateusdialog?.findViewById<LottieAnimationView>(R.id.fivestarBtn)
+
 
         if (twostarBtn != null) {
             if (onestarBtn != null) {
@@ -160,6 +171,11 @@ object ReviewDialog {
                 context,
                 setuprateuslist(listOfDrawable, listOfReviews, listOfUserName)
             )
+    }
+
+
+    fun setImageViewTint(imageView: ImageView, color: Int) {
+        imageView.imageTintList = ColorStateList.valueOf(color)
     }
 
 
