@@ -29,7 +29,7 @@ object ReviewDialog {
     private var toast: Toast? = null
     private var rateusAdapter: RateusAdapter? = null
 
-    fun showReviewDialog(context: Context , onDismiss: () -> Unit) {
+    fun showReviewDialog(context: Context , onDismiss: (Boolean) -> Unit) {
         reviewDialog?.let {
             if (it.isShowing) {
                 it.dismiss()
@@ -50,22 +50,21 @@ object ReviewDialog {
 
         likeBtn?.setOnClickListener {
             reviewDialog?.dismiss()
+            onDismiss(true)
             showInAppReviewScreen(context)
         }
 
         dislikeBtn?.setOnClickListener {
             Toast.makeText(context , "Thanks for your feedback." , Toast.LENGTH_SHORT).show()
+            onDismiss(false)
             reviewDialog?.dismiss()
         }
 
         closeBtn?.setOnClickListener {
             reviewDialog?.dismiss()
+            onDismiss(false)
         }
 
-
-        reviewDialog?.setOnDismissListener {
-            onDismiss()
-        }
     }
 
     fun showRateusDialog(
@@ -74,7 +73,7 @@ object ReviewDialog {
         listOfDrawable: ArrayList<Drawable?>,
         listOfUserName: ArrayList<String>,
         listOfReviews: ArrayList<String>,
-        onDismiss: () -> Unit
+        onDismiss: (Boolean) -> Unit
     ) {
         rateusAdapter = RateusAdapter()
         rateusdialog?.let {
@@ -97,9 +96,6 @@ object ReviewDialog {
         rateusdialog?.findViewById<TextView>(R.id.bestTxt)?.setTextColor(themecolor)
         rateusdialog?.findViewById<TextView>(R.id.feedbackTxt)?.setTextColor(themecolor)
 
-        rateusdialog?.setOnDismissListener {
-            onDismiss()
-        }
 
         var recycerview = rateusdialog?.findViewById<RecyclerView>(R.id.recyclerView)
         var closeBtn = rateusdialog?.findViewById<ImageView>(R.id.crossBtn)
@@ -139,30 +135,36 @@ object ReviewDialog {
 
         onestarBtn?.setOnClickListener {
             toast(context as Activity, "Thanks for your feedback.")
+            onDismiss(false)
             rateusdialog?.dismiss()
         }
 
         twostarBtn?.setOnClickListener {
             toast(context as Activity, "Thanks for your feedback.")
+            onDismiss(false)
             rateusdialog?.dismiss()
         }
 
         threestarBtn?.setOnClickListener {
             toast(context as Activity, "Thanks for your feedback.")
+            onDismiss(false)
             rateusdialog?.dismiss()
         }
 
         fourstarBtn?.setOnClickListener {
             showInAppReviewScreen(context)
+            onDismiss(true)
             rateusdialog?.dismiss()
         }
 
         fivestarBtn?.setOnClickListener {
             showInAppReviewScreen(context)
+            onDismiss(true)
             rateusdialog?.dismiss()
         }
 
         closeBtn?.setOnClickListener {
+            onDismiss(false)
             rateusdialog?.dismiss()
         }
 
