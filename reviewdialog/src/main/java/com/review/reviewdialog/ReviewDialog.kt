@@ -29,7 +29,7 @@ object ReviewDialog {
     private var toast: Toast? = null
     private var rateusAdapter: RateusAdapter? = null
 
-    fun showReviewDialog(context: Context , onDismiss: (Boolean) -> Unit) {
+    fun showReviewDialog(context: Context , onDismiss: (isReviewGiven : Boolean) -> Unit) {
         reviewDialog?.let {
             if (it.isShowing) {
                 it.dismiss()
@@ -73,7 +73,7 @@ object ReviewDialog {
         listOfDrawable: ArrayList<Drawable?>,
         listOfUserName: ArrayList<String>,
         listOfReviews: ArrayList<String>,
-        onDismiss: (Boolean) -> Unit
+        onDismiss: (isReviewGiven:Boolean) -> Unit
     ) {
         rateusAdapter = RateusAdapter()
         rateusdialog?.let {
@@ -173,6 +173,97 @@ object ReviewDialog {
                 context,
                 setuprateuslist(listOfDrawable, listOfReviews, listOfUserName)
             )
+    }
+
+
+    fun showRateusDialogWithoutReviews(
+        context: Context,
+        themecolor: Int,
+        onDismiss: (isReviewGiven:Boolean) -> Unit
+    ) {
+        rateusAdapter = RateusAdapter()
+        rateusdialog?.let {
+            if (it.isShowing) {
+                it.dismiss()
+            }
+        }
+        rateusdialog = Dialog(context)
+        rateusdialog?.window?.let { window ->
+            window.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+        rateusdialog?.setContentView(R.layout.dialog_rateus_without_reviews)
+        rateusdialog?.setCancelable(false)
+
+        rateusdialog?.show()
+
+        rateusdialog?.findViewById<ImageView>(R.id.arrowImg)
+            ?.let { setImageViewTint(it, themecolor) }
+
+        rateusdialog?.findViewById<TextView>(R.id.bestTxt)?.setTextColor(themecolor)
+
+        var closeBtn = rateusdialog?.findViewById<ImageView>(R.id.crossBtn)
+
+        val onestarBtn = rateusdialog?.findViewById<LottieAnimationView>(R.id.onestarBtn)
+        val twostarBtn = rateusdialog?.findViewById<LottieAnimationView>(R.id.twostarBtn)
+        val threestarBtn = rateusdialog?.findViewById<LottieAnimationView>(R.id.threestarBtn)
+        val fourstarBtn = rateusdialog?.findViewById<LottieAnimationView>(R.id.fourstarBtn)
+        val fivestarBtn = rateusdialog?.findViewById<LottieAnimationView>(R.id.fivestarBtn)
+
+
+        if (twostarBtn != null) {
+            if (onestarBtn != null) {
+                if (threestarBtn != null) {
+                    if (fourstarBtn != null) {
+                        if (fivestarBtn != null) {
+                            changeTexts(
+                                onestarBtn,
+                                twostarBtn,
+                                threestarBtn,
+                                fourstarBtn,
+                                fivestarBtn,
+                                context
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+
+        onestarBtn?.setOnClickListener {
+            toast(context as Activity, "Thanks for your feedback.")
+            onDismiss(false)
+            rateusdialog?.dismiss()
+        }
+
+        twostarBtn?.setOnClickListener {
+            toast(context as Activity, "Thanks for your feedback.")
+            onDismiss(false)
+            rateusdialog?.dismiss()
+        }
+
+        threestarBtn?.setOnClickListener {
+            toast(context as Activity, "Thanks for your feedback.")
+            onDismiss(false)
+            rateusdialog?.dismiss()
+        }
+
+        fourstarBtn?.setOnClickListener {
+            showInAppReviewScreen(context)
+            onDismiss(true)
+            rateusdialog?.dismiss()
+        }
+
+        fivestarBtn?.setOnClickListener {
+            showInAppReviewScreen(context)
+            onDismiss(true)
+            rateusdialog?.dismiss()
+        }
+
+        closeBtn?.setOnClickListener {
+            onDismiss(false)
+            rateusdialog?.dismiss()
+        }
     }
 
 

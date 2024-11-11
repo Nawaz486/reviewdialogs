@@ -36,7 +36,7 @@ android {
 // Define properties using `ext`
 ext {
     PUBLISH_GROUP_ID = "com.github.Nawaz486"
-    PUBLISH_VERSION = "1.1-alpha"
+    PUBLISH_VERSION = "1.2-alpha"
     PUBLISH_ARTIFACT_ID = "reviewdialog"
     PUBLISH_DESCRIPTION = "An android gradle plugin for review dialogs"
     PUBLISH_URL = "https://github.com/Nawaz486/reviewdialogs"
